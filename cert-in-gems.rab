@@ -1,0 +1,28 @@
+= Do you trust that certificate?
+
+# : subtitle
+#    SUBTITLE
+: author
+   zunda
+: institution
+   Heroku/Support
+# : content-source
+#    RubyKaigi 2015
+# : date
+#    2015-12-xx
+: allotted-time
+   5m
+: theme
+   lightning-talk
+
+= FIRST SLIDE
+
+  * ITEM 1
+  * ITEM 2
+  * ITEM 3
+
+= SECOND SLIDE
+
+  # image
+  # src = https://raw.github.com/rabbit-shocker/rabbit/master/sample/lavie.png
+  # relative_height = 100
