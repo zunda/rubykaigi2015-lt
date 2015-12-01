@@ -1,0 +1,171 @@
+RubyKaigi 2015
+
+LT https://rubykaigi-cfp.herokuapp.com/events/2015LT/proposals/0a6d5c9bdc
+- やること
+  - dataclipsからチケットの内容をみなおす
+    - どのgemが問題だったか
+      - ActiveMerchant
+      - Faraday
+      - Excon?
+      - newrelic_rpm
+      - savon?
+      - houston?
+    - 解決方法
+      - モンキーパッチ
+  - 全体のストーリーを考える
+    - 自己紹介
+    - TLS/SSLで通信しますよね
+    - HTTPSでもリクエストもらうし
+    - 外部のリソースとやりとりするし←今日はこっちのはなし
+    - サーバ証明書をもらって正当性を確認しますよね
+    - どうやって？ - PKI、CA証明書、中間CA証明書
+    - I didn't change anything but my app is down!
+    - SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificate verify
+    - 外部のリソースとやりとりできなくなった
+    - 2015年4月、9月、10月に
+    - 1024ビットとSHA-1の証明書のリタイアに対応？
+    - gemに含まれているCA証明書、中間CA証明書が古くなっていた
+    - gemに含まれている証明書を指定しているコードの例
+    - bundle update! well...
+    - monkey patch!
+    - システムのパスの指定例
+    - アプリ内のパスの指定例
+    - 今後は？
+    - Ubuntuのca_certificatesの更新頻度
+    - 代表的なgemの証明書の更新頻度
+    - Googleによる証明書の無効化予定 - タイムラインに足していけるといい
+    - GitHubでちょっと探すとたくさんあるので注意してね
+    - PKIの図再び
+  - スライドにまとめて行く
+    - 図表をつくる
+    - 暗号技術入門を掘り出してきて引用する
+      - PKI Public Key Infrastructure
+  - 暗号技術入門を買う
+- Do you trust that certificate?
+  - Some developers don't seem to take too much care of which CA certificates they trust when connecting to external services from their web apps. Certificates may come with the OS the app is running on or Ruby gems the app depends upon. This is not secure nor good for continued operation of the app. I will try to let the listeners know this fact and request to think the best way to maintain certificates depending upon the needs of their apps.
+  - Some gems that connects to external services has embedded TLS certificates
+    - Users need to know this
+    - Which gems? #todo
+  - I didn't change anything but app is down!
+    - https://dataclips.heroku.com/hjawxcgwrucrkjonwrtkptlnliby-Support-daigo-tickets-with-cert_store
+      - 2015-04-07 20:38:03 https://support.heroku.com/tickets/232075
+        - Intermittent error from the external resource?
+        - Faraday::SSLError (SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificate verify)
+        - Gemfile.lock
+          "omniauth (1.2.2)
+            hashie (>= 1.2, < 4)
+            rack (~> 1.0)
+          omniauth-facebook (2.0.1)
+            omniauth-oauth2 (~> 1.2)
+          omniauth-google-oauth2 (0.2.6)
+            omniauth (> 1.0)
+            omniauth-oauth2 (~> 1.1)
+          omniauth-linkedin-oauth2 (0.1.5)
+            omniauth (~> 1.0)
+            omniauth-oauth2
+          omniauth-oauth2 (1.2.0)
+            faraday (>= 0.8, < 0.10)
+            multi_json (~> 1.3)
+            oauth2 (~> 1.0)
+            omniauth (~> 1.2)
+          faraday (0.9.1)
+            multipart-post (>= 1.2, < 3)"
+        - omniauth gem
+          "require 'net/http'
+          require 'openssl'
+          
+          url = "https://api.linkedin.com"
+          
+          CA_FILES = %w(/etc/ssl/certs/ca-certificates.crt /usr/share/curl/curl-ca-bundle.crt)
+          CA_FILES.each do |ca_file|
+            if File.exists?(ca_file)
+              CA_FILE = ca_file
+              break
+            end
+          end
+          CA_FILE = nil unless defined?(CA_FILE)
+          
+          uri = URI.parse(url)
+          http = Net::HTTP.new(uri.host, uri.port)
+          http.use_ssl = true
+          http.ca_file = CA_FILE
+          http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+          http.verify_depth = 5
+          request = Net::HTTP::Get.new(uri.request_uri)
+          response = http.request(request)"
+      - 2015-09-23 14:06:32 https://support.heroku.com/tickets/282564
+        - Gemfile.lock
+          "    spree (0.60.1)
+          ...
+              spree_core (0.60.1)
+                activemerchant (= 1.15.0)"
+        - Fix: config/initializers/activemerchant.rb
+          "module ActiveMerchant
+            class Connection
+              def configure_ssl(http)
+                return unless endpoint.scheme == "https"
+          
+                http.use_ssl = true
+          
+                if verify_peer
+                  http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+                  # http.ca_file     = File.dirname(__FILE__) + '/../../certs/cacert.pem'
+                else
+                  http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+                end
+              end
+            end
+          end
+          "
+        - OpenSSL::SSL::SSLError (SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificate verify failed):
+      - 2015-10-02 01:51:04 https://support.heroku.com/tickets/285797
+        - active_utils-1.0.5/lib/certs/certs.pem
+        - Overrides: config/initializers/fix_ssl.rb
+        - Fix: config/initializers/fix_activemerchant.rb
+          "module ActiveMerchant
+            class Connection
+              def configure_ssl(http)
+                return unless endpoint.scheme == "https"
+          
+                http.use_ssl = true
+          
+                if verify_peer
+                  http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+                  http.ca_file     = '/app/lib/ssl/cacert.pem'
+                else
+                  http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+                end
+              end
+            end
+          end"
+        - Description
+          - Here is what I did to dig into this - at first I knew that some gems have their own CA certs. Because most of gems uses OpenSSL standard library, what I am looking for is an assignment to ca_file, ca_path, or cert_store. Grepping your code (something like find /app -type f -print0 | xargs -0 grep ca_file), I found that ActiveMerchant specifies its own CA certs in the said file in the method configure_ssl. Next thing was to write up a monkey patch for the method, which I posted in the previous comment. Just to check, I looked into your config/initializers directory and happened to find the fix_ssl.rb file. I wondered why this is not taking effect as expected and found that it only overrides the use_ssl= method. As you see in configure_ssl method, use_ssl= is called before ActiveMerchant overrides ca_file.
+        - OpenSSL::SSL::SSLError (SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificate verify failed):
+    - https://dataclips.heroku.com/wdiscwvonscvvjihqrbrpakvqxdm-Fork-of-Support-daigo-tickets-with-cert_store
+      - 2015-03-25 00:03:52 https://support.heroku.com/tickets/230548
+        - newrelic_rpm 3.5.8.72
+      - 2015-04-01 09:44:42 https://support.heroku.com/tickets/231278
+        - active_merchant
+      - 2015-04-13 17:10:06 https://support.heroku.com/tickets/232803
+        - openuri - certificate was too new
+      - 2015-06-14 13:37:33 https://support.heroku.com/tickets/242474
+        - houston-2.0.2
+        - /app/vendor/bundle/ruby/2.0.0/gems/houston-2.0.2/lib/houston/connection.rb:44:in `connect': SSL_connect SYSCALL returned=5 errno=0
+    - Phasing out Certificates with 1024-bit RSA Keys 2014-09-08
+      - https://blog.mozilla.org/security/2014/09/08/phasing-out-certificates-with-1024-bit-rsa-keys/
+    - Retirement of SSL certificate using SHA-1 around 2015-09-30
+      - https://ja.wikipedia.org/wiki/SHA-1 https://en.wikipedia.org/wiki/SHA-1
+        - 2005年、SHA-1に対する攻撃法が発見され、将来的な利用に十分な安全性を有していないことが示唆された
+      - http://aws.amazon.com/security/security-bulletins/aws-to-switch-to-sha256-hash-algorithm-for-ssl-certificates/
+        - AWS to Switch to SHA256 Hash Algorithm for SSL Certificates
+    - Expiration of certs by Google on 2016-06-01
+      - https://googleonlinesecurity.blogspot.com/2015/10/sustaining-digital-certificate-security.html
+  - CA certs around your app
+    - system
+      - Ubuntu
+      - OSX
+    - gems
+    - app specific - how to monkey patch
+      - openssl/ssl.rb
+      - gems
+  - http://curl.haxx.se/docs/sslcerts.html
