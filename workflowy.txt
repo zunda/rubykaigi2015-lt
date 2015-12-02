@@ -19,11 +19,12 @@ LT https://rubykaigi-cfp.herokuapp.com/events/2015LT/proposals/0a6d5c9bdc
     - 外部のリソースとやりとりするし←今日はこっちのはなし
     - サーバ証明書をもらって正当性を確認しますよね
     - どうやって？ - PKI、CA証明書、中間CA証明書
+    - しかし通信ができなくなる！
     - I didn't change anything but my app is down!
     - SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificate verify
     - 外部のリソースとやりとりできなくなった
     - 2015年4月、9月、10月に
-    - 1024ビットとSHA-1の証明書のリタイアに対応？
+    - 1024ビット (2014-09) とSHA-1 (2015-09) の証明書のリタイアに対応？
     - gemに含まれているCA証明書、中間CA証明書が古くなっていた
     - gemに含まれている証明書を指定しているコードの例
     - bundle update! well...
