@@ -20,6 +20,12 @@
   # src = anmitsu.jpg
   # relative_height = 100
 
+= Important!
+
+  # image
+  # src = hyuki-cr3.jpg
+  # relative_width = 100
+
 = Transport Layer Security
 = Secure Socket Layer
 = TLS/SSL
@@ -52,8 +58,11 @@ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificat
 = Your app does not know
 = WAT
 
-= SECOND SLIDE
+= www.hyuki.com/cr/
 
   # image
-  # src = https://raw.github.com/rabbit-shocker/rabbit/master/sample/lavie.png
-  # relative_height = 100
+  # src = hyuki-cr3.jpg
+  # relative_width = 100
+
+= CRL
+
