@@ -66,3 +66,5 @@ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificat
 
 = CRL
 
+= httpclient
+nahi/httpclient#230
