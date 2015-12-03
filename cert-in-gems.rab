@@ -13,7 +13,7 @@
 : allotted-time
    5m
 : theme
-   lightning-talk
+   lightning-talk-with-code
 
 = @zundan
   # image
@@ -55,8 +55,71 @@ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificat
 = Replacing with new certs
 = On new CA certs
 = that
-= Your app does not know
-= WAT
+= the app does not know
+
+= So ...
+= $ bundle update
+= well ...
+= Monkey patch
+= Monkey patch
+  # enscript ruby
+  module Net
+    class HTTP
+      alias_method :original_use_ssl=, :use_ssl=
+  
+      def use_ssl=(flag)
+        self.ca_file     = \
+          File.dirname(__FILE__) + '/../../certs/cacert.pem'
+        self.verify_mode = OpenSSL::SSL::VERIFY_PEER
+        self.original_use_ssl = flag
+      end
+    end
+  end
+
+= Monkey patch
+ # enscript ruby
+ module ActiveMerchant
+   class Connection
+     def configure_ssl(http)
+       return unless endpoint.scheme == "https"
+ 
+       http.use_ssl = true
+ 
+       if verify_peer
+         http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+         http.ca_file     = \
+           File.dirname(__FILE__) + '/../../certs/cacert.pem'
+       else
+         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+       end
+     end
+   end
+ end
+
+= Monkey patch
+  # enscript ruby
+  module ActiveMerchant
+    class Connection
+      def configure_ssl(http)
+        return unless endpoint.scheme == "https"
+
+        http.use_ssl = true
+
+        if verify_peer
+          http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+          http.ca_file     = TODO # DEFAULT PATH
+        else
+          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        end
+      end
+    end
+  end
+
+= What is next
+= Update of ca_certificates on Ubuntu
+= Update of certs on ActiveMerchant
+= Schedule from Google
+= Time line
 
 = www.hyuki.com/cr/
 
@@ -65,6 +128,7 @@ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificat
   # relative_width = 100
 
 = CRL
+= Certificate revocation list
 
 = httpclient
 nahi/httpclient#230
