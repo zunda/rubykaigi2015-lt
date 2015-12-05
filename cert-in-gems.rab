@@ -38,6 +38,14 @@
 = PKI
 = Server certificate
 = Certificate Authority
+= Certificate chain
+ ssl.zunda.ninja
+  |
+ COMODO RSA Validation Secure Server CA
+  |
+ COMODO RSA Certification Authority
+  |
+ AddTrust External CA Root
 
 = One day
 = Error
@@ -50,12 +58,29 @@ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificat
 = Error
 SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificate verify
 
+= Certificate chain
+ ssl.zunda.ninja
+  |
+ COMODO RSA Validation Secure Server CA
+  |
+ COMODO RSA Certification Authority
+  |
+ ??? AddTrust External CA Root
+
 = 2014-09 1024 bit hash
 = 2015-09 SHA-1
 = Replacing with new certs
 = On new CA certs
 = that
 = the app does not know
+= Certificate chain
+ ssl.zunda.ninja
+  |
+ COMODO RSA Validation Secure Server CA
+  |
+ COMODO RSA Certification Authority
+  |
+ ??? AddTrust External CA Root
 
 = So ...
 = $ bundle update
