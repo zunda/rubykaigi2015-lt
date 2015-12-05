@@ -143,9 +143,11 @@ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificat
 = Remember what we trust
 
 = What is coming?
-= Update of ca_certificates on Ubuntu
-= Update of certs on ActiveMerchant
-= Schedule from Google
+= 2016-06-01
+= Symantec certs on Google products?
+
+= Updates of ca_certificates on Ubuntu
+= Updates of certs on ActiveMerchant
 = Time line
 
 = www.hyuki.com/cr/
