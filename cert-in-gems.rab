@@ -86,22 +86,22 @@ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificat
 = $ bundle update
 = well ...
 = Monkey patch
-= Monkey patch
+= net/http
   # enscript ruby
   module Net
     class HTTP
       alias_method :original_use_ssl=, :use_ssl=
   
       def use_ssl=(flag)
-        self.ca_file     = \
-          File.dirname(__FILE__) + '/../../certs/cacert.pem'
+        self.ca_file     = File.dirname(__FILE__) + \
+          '/../../certs/cacert.pem'
         self.verify_mode = OpenSSL::SSL::VERIFY_PEER
         self.original_use_ssl = flag
       end
     end
   end
 
-= Monkey patch
+= ActiveMerchant
  # enscript ruby
  module ActiveMerchant
    class Connection
@@ -112,8 +112,8 @@ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificat
  
        if verify_peer
          http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-         http.ca_file     = \
-           File.dirname(__FILE__) + '/../../certs/cacert.pem'
+         http.ca_file     = File.dirname(__FILE__) + \
+           '/../../certs/cacert.pem'
        else
          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
        end
@@ -121,7 +121,7 @@ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificat
    end
  end
 
-= Monkey patch
+= ActiveMerchant
   # enscript ruby
   module ActiveMerchant
     class Connection
@@ -140,7 +140,9 @@ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificat
     end
   end
 
-= What is next
+= Remember what we trust
+
+= What is coming?
 = Update of ca_certificates on Ubuntu
 = Update of certs on ActiveMerchant
 = Schedule from Google
