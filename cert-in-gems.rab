@@ -65,7 +65,7 @@ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificat
   |
  COMODO RSA Certification Authority
   |
- ??? AddTrust External CA Root
+ [NEW!] AddTrust External CA Root
 
 = 2014-09 1024 bit hash
 = 2015-09 SHA-1
