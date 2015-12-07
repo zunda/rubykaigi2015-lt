@@ -122,7 +122,16 @@ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificat
    end
  end
 
-= ActiveMerchant
+= System's certs
+ # enscript sh
+ $ openssl version -d
+ OPENSSLDIR: "/usr/lib/ssl"
+ $ ls /usr/lib/ssl
+ certs@  misc/  openssl.cnf@  private@
+ $ ls -l /usr/lib/ssl/certs
+ ... /usr/lib/ssl/certs -> /etc/ssl/certs/
+
+= System's certs
  # enscript ruby
  module ActiveMerchant
    class Connection
@@ -133,7 +142,7 @@ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificat
 
        if verify_peer
          http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-         http.ca_file     = TODO # DEFAULT PATH
+         http.ca_path = '/etc/ssl/certs'  # TODO:Check
        else
          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
        end
