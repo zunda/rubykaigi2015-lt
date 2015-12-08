@@ -181,10 +181,27 @@ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificat
 = 2016-06-01
 = Symantec certs on Google products?
 
-= Updates of ca_certificates on Ubuntu
-= Updates of certs on ActiveMerchant
-= Time line
+= Will there be updates?
+= On Ubuntu
+* 2015-04-26 ((-((<launchpad - ca-certificates|URL:https://launchpad.net/ubuntu/+source/ca-certificates/+changelog>))-))
+* 2014-10-19
+* 2014-03-25
+* 2013-09-06
+* 2013-06-10
+* 2013-01-19
+* :
 
+= On ActiveMerchant
+* 2015-01-16 ((-((<activemerchant - active_merchant|URL:https://github.com/activemerchant/active_merchant/commits/master/lib/certs/cacert.pem>))-))
+* 2011-09-15
+* 2007-03-03
+
+= CA certificates
+* 2014-09 1024 bit hash
+* 2015-09 SHA-1
+* 2016-06?
+
+= Once more
 = www.hyuki.com/cr/
 
   # image
