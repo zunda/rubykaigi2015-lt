@@ -108,9 +108,7 @@ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificat
    class Connection
      def configure_ssl(http)
        return unless endpoint.scheme == "https"
- 
        http.use_ssl = true
- 
        if verify_peer
          http.verify_mode = OpenSSL::SSL::VERIFY_PEER
          http.ca_file     = File.dirname(__FILE__) + \
@@ -123,6 +121,8 @@ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificat
  end
 
 = System's certs
+= Where are they?
+= System's certs
  # enscript sh
  $ openssl version -d
  OPENSSLDIR: "/usr/lib/ssl"
@@ -132,7 +132,6 @@ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificat
  ... /usr/lib/ssl/certs -> /etc/ssl/certs/
 
 = openssl/ssl.rb
-
  # enscript ruby
  module OpenSSL
    module SSL
@@ -161,9 +160,7 @@ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificat
    class Connection
      def configure_ssl(http)
        return unless endpoint.scheme == "https"
-
        http.use_ssl = true
-
        if verify_peer
          http.verify_mode = OpenSSL::SSL::VERIFY_PEER
          http.ca_path = nil
@@ -175,6 +172,7 @@ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificat
    end
  end
 
+= Anyway
 = Remember what we trust
 
 = What is coming?
