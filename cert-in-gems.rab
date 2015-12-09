@@ -55,7 +55,7 @@ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificat
 
 = I did not change anything!
 = but
-= External resources changed
+= Something outside has changed
 = Error
 SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificate verify
 
@@ -66,7 +66,7 @@ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificat
   |
  COMODO RSA Certification Authority
   |
- [NEW!] AddTrust External CA Root
+ [NEW!] e.g. AddTrust External CA Root
 
 = 2014-09 1024 bit hash
 = 2015-09 SHA-1
@@ -81,12 +81,13 @@ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificat
   |
  COMODO RSA Certification Authority
   |
- ??? AddTrust External CA Root
+ [???] e.g. AddTrust External CA Root
 
 = So ...
 = $ bundle update
 = well ...
 = Monkey patch
+= App's own CA certs
 = net/http
  # enscript ruby
  module Net
@@ -120,14 +121,16 @@ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificat
    end
  end
 
-= System's certs
+= System's CA certs
 = Where are they?
 = System's certs
  # enscript sh
  $ openssl version -d
  OPENSSLDIR: "/usr/lib/ssl"
+
  $ ls /usr/lib/ssl
  certs@  misc/  openssl.cnf@  private@
+
  $ ls -l /usr/lib/ssl/certs
  ... /usr/lib/ssl/certs -> /etc/ssl/certs/
 
@@ -175,29 +178,31 @@ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificat
 = Anyway
 = Remember what we trust
 
-= What is coming?
+= What are coming?
 = 2016-06-01
 = Symantec certs on Google products?
 
 = Will there be updates?
 = On Ubuntu
-* 2015-04-26 ((-((<launchpad - ca-certificates|URL:https://launchpad.net/ubuntu/+source/ca-certificates/+changelog>))-))
-* 2014-10-19
-* 2014-03-25
-* 2013-09-06
-* 2013-06-10
-* 2013-01-19
 * :
+* 2013-01-19
+* 2013-06-10
+* 2013-09-06
+* 2014-03-25
+* 2014-10-19
+* 2015-04-26 ((-((<launchpad - ca-certificates|URL:https://launchpad.net/ubuntu/+source/ca-certificates/+changelog>))-))
 
 = On ActiveMerchant
-* 2015-01-16 ((-((<activemerchant - active_merchant|URL:https://github.com/activemerchant/active_merchant/commits/master/lib/certs/cacert.pem>))-))
-* 2011-09-15
 * 2007-03-03
+* 2011-09-15
+* 2015-01-16 ((-((<activemerchant - active_merchant|URL:https://github.com/activemerchant/active_merchant/commits/master/lib/certs/cacert.pem>))-))
 
 = CA certificates
 * 2014-09 1024 bit hash
 * 2015-09 SHA-1
 * 2016-06?
+
+= Be prepared!
 
 = Once more
 = www.hyuki.com/cr/
