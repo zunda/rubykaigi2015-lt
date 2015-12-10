@@ -5,6 +5,7 @@ include_theme("default-text")
 include_theme("image")
 include_theme("lightning-talk-toolkit")
 include_theme("default-preformatted")
+include_theme("default-block-quote")
 
 match(TitleSlide) do |slides|
   slides.horizontal_centering = true
