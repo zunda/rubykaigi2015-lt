@@ -45,6 +45,7 @@
 = A web application
 = Receives requests
 = Calls external resources
+= That handles secret information
 
 = How does app trust them?
 = PKI
@@ -106,7 +107,7 @@
 = So ...
 = $ bundle update
 = well ...
-= Monkey patch to use
+= Monkey patch for
 = CA cert included in app
 = net/http
  # enscript ruby
