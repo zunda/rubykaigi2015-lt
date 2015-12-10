@@ -35,15 +35,16 @@ Salesforce / Heroku
 = https://
 
 = Your web application
-= Receive requests
-= Call external resources
+= Receives requests
+= Calls external resources
 
-= To trust
+= How does it trust them?
+
 = PKI
 = Server certificate
 = Certificate Authority
 = Certificate chain
- ssl.zunda.ninja
+ ssl.zunda.ninja:443
   |
  COMODO RSA Validation Secure Server CA
   |
@@ -54,22 +55,24 @@ Salesforce / Heroku
 = One day
 = Error
 = Error
-SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificate verify
+ # blockquote
+ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificate verify
 
 = I did not change anything!
 = but
 = Something outside has changed
 = Error
-SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificate verify
+ # blockquote
+ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificate verify
 
 = Certificate chain
- ssl.zunda.ninja
+ ssl.zunda.ninja:443
   |
- COMODO RSA Validation Secure Server CA
+ [NEW] Some Server CA
   |
- COMODO RSA Certification Authority
+ [NEW] Some Certification Authority
   |
- [NEW!] e.g. AddTrust External CA Root
+ [NEW!] Unknown CA Root
 
 = 2014-09 1024 bit hash
 = 2015-09 SHA-1
@@ -78,13 +81,16 @@ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificat
 = that
 = the app does not know
 = Certificate chain
- ssl.zunda.ninja
+ ssl.zunda.ninja:443
   |
- COMODO RSA Validation Secure Server CA
+ [NEW] Some Server CA
   |
- COMODO RSA Certification Authority
+ [NEW] Some Certification Authority
   |
- [???] e.g. AddTrust External CA Root
+ [????] Unknown CA Root
+= Error
+ # blockquote
+ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificate verify
 
 = So ...
 = $ bundle update
@@ -138,20 +144,21 @@ SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificat
  ... /usr/lib/ssl/certs -> /etc/ssl/certs/
 
 = openssl/ssl.rb
+ # blockquote
+ If the verify_mode is not VERIFY_NONE and ca_file, ca_path and 
+ cert_store are not set then the system default certificate store is 
+ used.
+
+= openssl/ssl.rb
  # enscript ruby
  module OpenSSL
    module SSL
      class SSLContext
-       DEFAULT_CERT_STORE = OpenSSL::X509::Store.new
-       # If the verify_mode is not VERIFY_NONE and ca_file, ca_path and
-       # cert_store are not set then the system default certificate store is
-       # used.
        def set_params(params={})
-         params = DEFAULT_PARAMS.merge(params)
-         params.each{|name, value| self.__send__("#{name}=", value) }
+         # snip
          if self.verify_mode != OpenSSL::SSL::VERIFY_NONE
            unless self.ca_file or self.ca_path or self.cert_store
-             self.cert_store = DEFAULT_CERT_STORE
+             self.cert_store = OpenSSL::X509::Store.new
            end
          end
          return params
