@@ -46,8 +46,7 @@
 = Receives requests
 = Calls external resources
 
-= How does it trust them?
-
+= How does app trust them?
 = PKI
 = Public-key infrastructure
 = Server certificate
@@ -87,10 +86,9 @@
 
 = 2014-09 1024 bit hash
 = 2015-09 SHA-1
-= Replacing with new certs
+= Replace with new certs
 = On new CA certs
-= that
-= the app does not know
+= That app does not know
 = Certificate chain
  ssl.zunda.ninja:443
   |
@@ -108,8 +106,8 @@
 = So ...
 = $ bundle update
 = well ...
-= Monkey patch
-= App's own CA certs
+= Monkey patch to use
+= CA cert included in app
 = net/http
  # enscript ruby
  module Net
@@ -234,10 +232,16 @@
   # relative_width = 100
 
 = CRL
-= Certificate revocation list
+= Certificate Revocation List
 
-= PCI
-= Disabling SSL and TLS1.0
+= PCI Compliance
+= Payment Card Industry
+= SSL and TLS1.0 will be disabled
+
+= Be prepared!
+  # image
+  # src = anmitsu.jpg
+  # relative_height = 100
 
 = URLs
 * ((<暗号技術入門|URL:https:/www.hyuki.com/cr/>))
