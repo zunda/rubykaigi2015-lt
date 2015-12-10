@@ -57,6 +57,7 @@
   |
  COMODO RSA Certification Authority
   |
+  |
  AddTrust External CA Root
 
 = One day
@@ -79,7 +80,8 @@
   |
  [NEW] Some Certification Authority
   |
- [NEW!] Unknown CA Root
+  |
+ [NEW] Unknown CA Root
 
 = 2014-09 1024 bit hash
 = 2015-09 SHA-1
@@ -94,7 +96,9 @@
   |
  [NEW] Some Certification Authority
   |
- [????] Unknown CA Root
+  |
+ [????]
+
 = Error
  # blockquote
  SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificate verify
