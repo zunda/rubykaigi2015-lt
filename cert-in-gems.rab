@@ -1,5 +1,4 @@
 = Do you trust that certificate?
-
 # : subtitle
 #    SUBTITLE
 #: author
@@ -15,25 +14,27 @@
 : theme
    lightning-talk-with-code
 
+= @zundan
+  # image
+  # src = anmitsu.jpg
+  # relative_height = 100
+= @zundan
+  # image
+  # src = 2015sf_Heroku_logo_RGB.png
+  # relative_width = 100
+= @zundan
+  # image
+  # src = heroku-logotype-horizontal-purple.png
+  # relative_width = 100
+
 = Important!
   # image
   # src = hyuki-cr3.jpg
   # relative_width = 100
 = Introduction to modern cryptography
-
-= @zundan
+= www.hyuki.com/cr/
   # image
-  # src = anmitsu.jpg
-  # relative_height = 100
-
-= @zundan
-  # image
-  # src = 2015sf_Heroku_logo_RGB.png
-  # relative_width = 100
-
-= @zundan
-  # image
-  # src = heroku-logotype-horizontal-purple.png
+  # src = hyuki-cr3.jpg
   # relative_width = 100
 
 = Transport Layer Security
@@ -41,13 +42,14 @@
 = TLS/SSL
 = https://
 
-= Your web application
+= A web application
 = Receives requests
 = Calls external resources
 
 = How does it trust them?
 
 = PKI
+= Public-key infrastructure
 = Server certificate
 = Certificate Authority
 = Certificate chain
@@ -227,7 +229,6 @@
 
 = Once more
 = www.hyuki.com/cr/
-
   # image
   # src = hyuki-cr3.jpg
   # relative_width = 100
