@@ -15,19 +15,26 @@
 : theme
    lightning-talk-with-code
 
+= Important!
+  # image
+  # src = hyuki-cr3.jpg
+  # relative_width = 100
+= Introduction to modern cryptography
+
 = @zundan
   # image
   # src = anmitsu.jpg
   # relative_height = 100
 
 = @zundan
-Salesforce / Heroku
-
-= Important!
   # image
-  # src = hyuki-cr3.jpg
+  # src = 2015sf_Heroku_logo_RGB.png
   # relative_width = 100
-= Introduction to modern cryptography
+
+= @zundan
+  # image
+  # src = heroku-logotype-horizontal-purple.png
+  # relative_width = 100
 
 = Transport Layer Security
 = Secure Socket Layer
