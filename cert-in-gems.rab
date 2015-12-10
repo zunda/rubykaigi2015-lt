@@ -244,3 +244,8 @@
 * ((<SHA-1|URL:https://ja.wikipedia.org/wiki/SHA-1>))
 * ((<AWS to Switch to SHA256 Hash Algorithm for SSL Certificates|URL:https://aws.amazon.com/security/security-bulletins/aws-to-switch-to-sha256-hash-algorithm-for-ssl-certificates/>))
 * ((<Sustaining Digital Certificate Security|URL:https://googleonlinesecurity.blogspot.com/2015/10/sustaining-digital-certificate-security.html>))
+
+= CC BY-ND 4.0
+Presented as a lightning talk in RubyKaigi 2015 on 2015-12-12
+
+Copyright 2015 by zunda <zundan@gmail.com>
