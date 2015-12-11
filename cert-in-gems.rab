@@ -107,9 +107,9 @@
 = So ...
 = $ bundle update
 = well ...
-= Monkey patch to
 = Include new CA cert in app
-= net/http
+= Monkey patch to use it
+= Net::HTTP
  # enscript ruby
  module Net
    class HTTP
@@ -219,12 +219,7 @@
 * 2011-09-15
 * 2015-01-16 ((-((<activemerchant - active_merchant|URL:https://github.com/activemerchant/active_merchant/commits/master/lib/certs/cacert.pem>))-))
 
-= CA certificates
-* 2014-09 1024 bit hash
-* 2015-09 SHA-1
-* 2016-06?
-
-= Be prepared!
+= Remember and be prepared!
 
 = Once more
 = www.hyuki.com/cr/
@@ -240,10 +235,7 @@
 = PCI Compliance
 = Payment Card Industry
 
-= Be prepared!
-  # image
-  # src = anmitsu.jpg
-  # relative_height = 100
+= Remember what we trust
 
 = URLs
 * ((<暗号技術入門|URL:https:/www.hyuki.com/cr/>))
