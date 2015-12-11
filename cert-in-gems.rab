@@ -51,7 +51,7 @@
 = PKI
 = Public-key infrastructure
 = Server certificate
-= Certificate Authority
+= Signed by Certificate Authority
 = Certificate chain
  ssl.zunda.ninja:443
   |
@@ -107,8 +107,8 @@
 = So ...
 = $ bundle update
 = well ...
-= Monkey patch for
-= CA cert included in app
+= Monkey patch to
+= Include new CA cert in app
 = net/http
  # enscript ruby
  module Net
