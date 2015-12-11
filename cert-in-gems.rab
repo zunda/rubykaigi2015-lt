@@ -234,10 +234,11 @@
 
 = CRL
 = Certificate Revocation List
+= How are we updating this?
 
+= SSL and TLS1.0 will be disabled
 = PCI Compliance
 = Payment Card Industry
-= SSL and TLS1.0 will be disabled
 
 = Be prepared!
   # image
