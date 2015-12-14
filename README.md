@@ -11,6 +11,6 @@ Install rabbit and run `rake`
 Some developers don't seem to take too much care of which CA certificates they trust when connecting to external services from their web apps. Certificates may come with the OS the app is running on or Ruby gems the app depends upon. This is not secure nor good for continued operation of the app. I will try to let the listeners know this fact and request to think the best way to maintain certificates depending upon the needs of their apps.
 
 ## License
-CC BY-ND 4.0
+[CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/)
 
 Copyright 2015 by zunda <zundan at gmail.com>
