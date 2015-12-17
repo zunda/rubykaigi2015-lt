@@ -1,1 +1,1 @@
-cert-in-gems.rab -w 800 -h 600 -f
+cert-in-gems.rab --paper-size=792,612
